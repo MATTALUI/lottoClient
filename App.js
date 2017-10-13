@@ -24,15 +24,29 @@ export default class App extends Component<{}> {
       secondGrandPrize: 0,
       firstPrize: 0,
       getThree: 0,
-      date: {complete: null}
+      date: {complete: null},
+      madeCall: false
     }
   }
   componentDidMount = async ()=>{
     let call = await fetch('http://192.168.1.75:8000/winning-numbers');
     let response = await call.json();
+    response.madeCall = true;
     this.setState(response);
   }
   render() {
+    if(!this.state.madeCall){
+      return (
+        <View style={styles.container}>
+          <Text style={styles.welcome}>
+            Lotto.
+          </Text>
+          <View style={styles.imageContainer}>
+            <Image source={require('./assets/loading.gif')} style={{width:100, height: 100}} />
+          </View>
+        </View>
+      )
+    }
     return (
       <View style={styles.container}>
 
@@ -52,7 +66,7 @@ export default class App extends Component<{}> {
         <Text style={styles.number}>
           GET THREE: {this.state.grandPrize}
         </Text>
-        <Image source={require('./assets/loading.gif')}/>
+
       </View>
     );
   }
@@ -71,5 +85,11 @@ const styles = StyleSheet.create({
   number: {
     textAlign: 'center',
     color: '#ffffff'
+  },
+  imageContainer: {
+    width: 100,
+    marginLeft: 'auto',
+    marginRight: 'auto',
+    marginTop: 150
   }
 });
