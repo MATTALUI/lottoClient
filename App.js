@@ -7,7 +7,7 @@ import {
   View,
   Image
 } from 'react-native';
-import Test from './components/test.js';
+import WinningNumbers from './components/WinningNumbers.js';
 
 const instructions = Platform.select({
   ios: 'Press Cmd+R to reload,\n' +
@@ -17,58 +17,13 @@ const instructions = Platform.select({
 });
 
 export default class App extends Component<{}> {
-  constructor(props){
-    super(props);
-    this.state = {
-      grandPrize: 0,
-      secondGrandPrize: 0,
-      firstPrize: 0,
-      getThree: 0,
-      date: {complete: null},
-      madeCall: false
-    }
-  }
-  componentDidMount = async ()=>{
-    let call = await fetch('http://192.168.1.75:8000/winning-numbers');
-    let response = await call.json();
-    response.madeCall = true;
-    this.setState(response);
-  }
-  render() {
-    if(!this.state.madeCall){
-      return (
-        <View style={styles.container}>
-          <Text style={styles.welcome}>
-            Lotto.
-          </Text>
-          <View style={styles.imageContainer}>
-            <Image source={require('./assets/loading.gif')} style={{width:100, height: 100}} />
-          </View>
-        </View>
-      )
-    }
+  render(){
     return (
       <View style={styles.container}>
-
-        <Text style={styles.welcome}>
-          Lotto.
-        </Text>
-        <Text style={styles.number}>{this.state.date.complete}</Text>
-        <Text style={styles.number}>
-          GRAND PRIZE: {this.state.grandPrize}
-        </Text>
-        <Text style={styles.number}>
-          SECOND GRAND PRIZE: {this.state.secondGrandPrize}
-        </Text>
-        <Text style={styles.number}>
-          FIRST PRIZE: {this.state.firstPrize}
-        </Text>
-        <Text style={styles.number}>
-          GET THREE: {this.state.grandPrize}
-        </Text>
-
+        <Text style={styles.welcome}>Lotto.</Text>
+        <WinningNumbers/>
       </View>
-    );
+    )
   }
 }
 
