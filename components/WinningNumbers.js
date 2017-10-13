@@ -1,5 +1,6 @@
 import React from 'react';
-import {Text, View, StyleSheet, Image} from 'react-native';
+import {Text, View, StyleSheet, Image, Button} from 'react-native';
+
 
 export default class WinningNumbers extends React.Component {
   constructor(props){
@@ -19,6 +20,9 @@ export default class WinningNumbers extends React.Component {
     let response = await call.json();
     response.madeCall = true;
     this.setState(response);
+  }
+  go = ()=>{
+    this.props.switchState('test');
   }
 
   render() {
@@ -46,7 +50,7 @@ export default class WinningNumbers extends React.Component {
         <Text style={styles.number}>
           GET THREE: {this.state.grandPrize}
         </Text>
-
+        <Button onPress={this.go} title="Hide Winning Numbers"/>
       </View>
     );
   }

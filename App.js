@@ -5,9 +5,12 @@ import {
   StyleSheet,
   Text,
   View,
-  Image
+  Image,
+  Button
 } from 'react-native';
 import WinningNumbers from './components/WinningNumbers.js';
+import Test from './components/Test.js';
+import {Router, Stack, Scene, Actions} from 'react-native-router-flux';
 
 const instructions = Platform.select({
   ios: 'Press Cmd+R to reload,\n' +
@@ -17,16 +20,37 @@ const instructions = Platform.select({
 });
 
 export default class App extends Component<{}> {
+  constructor (props) {
+    super(props);
+    this.state = {
+      route: 'menu'
+    };
+  }
+  toggleWinning=()=>{
+    this.setState({showWinning: !this.state.showWinning});
+  }
+  switchState = (newRoute) =>{
+    this.setState({route: newRoute});
+  }
   render(){
+    let route;
+    switch (this.state.route) {
+      case 'menu':
+        route = (<WinningNumbers switchState={this.switchState}/>);
+        break;
+      case 'test':
+        route = (<Test switchState={this.switchState}/>);
+        break;
+    }
     return (
       <View style={styles.container}>
-        <Text style={styles.welcome}>Lotto.</Text>
-        <WinningNumbers/>
+        <Text style={styles.welcome}>LOTTO.</Text>
+        {route}
       </View>
     )
   }
 }
-
+// color="#A8C9FF"
 const styles = StyleSheet.create({
   container: {
     flex: 1,
