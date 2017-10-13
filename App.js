@@ -4,7 +4,8 @@ import {
   Platform,
   StyleSheet,
   Text,
-  View
+  View,
+  Image
 } from 'react-native';
 import Test from './components/test.js';
 
@@ -16,12 +17,42 @@ const instructions = Platform.select({
 });
 
 export default class App extends Component<{}> {
+  constructor(props){
+    super(props);
+    this.state = {
+      grandPrize: 0,
+      secondGrandPrize: 0,
+      firstPrize: 0,
+      getThree: 0,
+      date: {complete: null}
+    }
+  }
+  componentDidMount = async ()=>{
+    let call = await fetch('http://192.168.1.75:8000/winning-numbers');
+    let response = await call.json();
+    this.setState(response);
+  }
   render() {
     return (
       <View style={styles.container}>
+
         <Text style={styles.welcome}>
           Lotto.
         </Text>
+        <Text style={styles.number}>{this.state.date.complete}</Text>
+        <Text style={styles.number}>
+          GRAND PRIZE: {this.state.grandPrize}
+        </Text>
+        <Text style={styles.number}>
+          SECOND GRAND PRIZE: {this.state.secondGrandPrize}
+        </Text>
+        <Text style={styles.number}>
+          FIRST PRIZE: {this.state.firstPrize}
+        </Text>
+        <Text style={styles.number}>
+          GET THREE: {this.state.grandPrize}
+        </Text>
+        <Image source={require('./assets/loading.gif')}/>
       </View>
     );
   }
@@ -33,8 +64,12 @@ const styles = StyleSheet.create({
     backgroundColor: '#21447c',
   },
   welcome: {
-    fontSize: 100,
+    fontSize: 33,
     textAlign: 'center',
     color: '#F0F0F0'
+  },
+  number: {
+    textAlign: 'center',
+    color: '#ffffff'
   }
 });
