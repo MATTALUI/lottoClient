@@ -3,13 +3,13 @@ import {View, Text, Button} from 'react-native';
 
 export default class Test extends React.Component {
   go = () =>{
-    this.props.switchState('menu');
+    this.props.switchState('Menu');
   }
   render(){
     return (
       <View>
         <Text>TEST!</Text>
-        <Button onPress={this.go} title="Go"/>
+        <Button onPress={this.go} title='Menu'/>
       </View>
     )
   }

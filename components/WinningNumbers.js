@@ -22,7 +22,7 @@ export default class WinningNumbers extends React.Component {
     this.setState(response);
   }
   go = ()=>{
-    this.props.switchState('test');
+    this.props.switchState('Menu');
   }
 
   render() {
@@ -50,7 +50,7 @@ export default class WinningNumbers extends React.Component {
         <Text style={styles.number}>
           GET THREE: {this.state.grandPrize}
         </Text>
-        <Button onPress={this.go} title="Hide Winning Numbers"/>
+        <Button onPress={this.go} title='Back to Menu'/>
       </View>
     );
   }
