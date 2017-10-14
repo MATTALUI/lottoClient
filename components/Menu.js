@@ -9,13 +9,23 @@ export default class Menu extends React.Component {
     return (
       <View>
         <Text style={styles.title}>Main Menu</Text>
+
+        <TouchableOpacity onPress={()=>{this.go('New')}} style={[styles.menuButton,styles.newButton]}>
+          <Text style={[styles.buttonText,styles.new]}>Add Receipt</Text>
+        </TouchableOpacity>
+
         <TouchableOpacity onPress={()=>{this.go('WinningNumbers')}} style={styles.menuButton}>
           <Text style={styles.buttonText}>View Winning Numbers</Text>
         </TouchableOpacity>
 
-        <TouchableOpacity onPress={()=>{this.go('Test')}} style={styles.menuButton}>
-          <Text style={styles.buttonText}>Test</Text>
+        <TouchableOpacity onPress={()=>{this.go('MyNumbers')}} style={styles.menuButton}>
+          <Text style={styles.buttonText}>My Numbers</Text>
         </TouchableOpacity>
+
+        <TouchableOpacity onPress={()=>{this.go('Account')}} style={styles.menuButton}>
+          <Text style={styles.buttonText}>Account Settings</Text>
+        </TouchableOpacity>
+
       </View>
     )
   }
@@ -35,7 +45,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#5880e8',
     width: '85%',
     height: 50,
-    marginTop: 4,
+    marginTop: 20,
     marginLeft: 'auto',
     marginRight: 'auto',
     borderRadius: 65,
@@ -49,5 +59,11 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     fontSize: 23,
     marginTop: 5
+  },
+  new: {
+    color: 'white'
+  },
+  newButton: {
+    backgroundColor: 'red'
   }
 });

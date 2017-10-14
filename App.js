@@ -12,6 +12,10 @@ import {
 import WinningNumbers from './components/WinningNumbers.js';
 import Test from './components/Test.js';
 import Menu from './components/Menu.js';
+import Account from './components/Account.js';
+import Login from './components/Login.js';
+import New from './components/New.js';
+import MyNumbers from './components/MyNumbers.js';
 import {Router, Stack, Scene, Actions} from 'react-native-router-flux';
 
 const instructions = Platform.select({
@@ -42,6 +46,18 @@ export default class App extends Component<{}> {
         break;
       case 'WinningNumbers':
         route = (<WinningNumbers switchState={this.switchState}/>);
+        break;
+      case 'Account':
+        route = (<Account switchState={this.switchState}/>);
+        break;
+      case 'MyNumbers':
+        route = (<MyNumbers switchState={this.switchState}/>);
+        break;
+      case 'Login':
+        route = (<Login switchState={this.switchState}/>);
+        break;
+      case 'New':
+        route = (<New switchState={this.switchState}/>);
         break;
       case 'Test':
         route = (<Test switchState={this.switchState}/>);
