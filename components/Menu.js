@@ -26,6 +26,17 @@ export default class Menu extends React.Component {
           <Text style={styles.buttonText}>Account Settings</Text>
         </TouchableOpacity>
 
+        {this.props.user?
+          <TouchableOpacity onPress={this.props.logout} style={styles.menuButton}>
+            <Text style={styles.buttonText}>Log Out</Text>
+          </TouchableOpacity>
+          :
+          <TouchableOpacity onPress={()=>{this.go('Login')}} style={styles.menuButton}>
+            <Text style={styles.buttonText}>Log In</Text>
+          </TouchableOpacity>
+        }
+
+
       </View>
     )
   }

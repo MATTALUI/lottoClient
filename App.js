@@ -7,7 +7,8 @@ import {
   View,
   Image,
   Button,
-  ToolbarAndroid
+  ToolbarAndroid,
+  AsyncStorage
 } from 'react-native';
 import WinningNumbers from './components/WinningNumbers.js';
 import Test from './components/Test.js';
@@ -29,8 +30,32 @@ export default class App extends Component<{}> {
   constructor (props) {
     super(props);
     this.state = {
-      route: 'Menu'
+      route: 'Menu',
+      user: null
     };
+  }
+  componentWillMount = async ()=>{
+    // await AsyncStorage.removeItem('userToken');
+    // await AsyncStorage.setItem('userToken', 'this is a temporary user');
+    let user = await AsyncStorage.getItem('userToken');
+    this.setState({user});
+
+  }
+  login = async (creds)=>{
+    let token = await AsyncStorage.getItem('userToken');
+    creds.token = token;
+    let call = await fetch('http://192.168.1.75:8000/login',{
+      method: 'Post',
+      body: JSON.stringify(creds),
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    });
+    let response = await call.text();
+  }
+  logout = async ()=>{
+    await AsyncStorage.removeItem('userToken');
+    this.setState({user:null});
   }
   toggleWinning=()=>{
     this.setState({showWinning: !this.state.showWinning});
@@ -42,25 +67,25 @@ export default class App extends Component<{}> {
     let route;
     switch (this.state.route) {
       case 'Menu':
-        route = (<Menu switchState={this.switchState}/>);
+        route = (<Menu switchState={this.switchState} user={this.state.user} logout={this.logout}/>);
         break;
       case 'WinningNumbers':
-        route = (<WinningNumbers switchState={this.switchState}/>);
+        route = (<WinningNumbers switchState={this.switchState} user={this.state.user}/>);
         break;
       case 'Account':
-        route = (<Account switchState={this.switchState}/>);
+        route = (<Account switchState={this.switchState} user={this.state.user}/>);
         break;
       case 'MyNumbers':
-        route = (<MyNumbers switchState={this.switchState}/>);
+        route = (<MyNumbers switchState={this.switchState} user={this.state.user}/>);
         break;
       case 'Login':
-        route = (<Login switchState={this.switchState}/>);
+        route = (<Login switchState={this.switchState} user={this.state.user}  logout={this.logout}/>);
         break;
       case 'New':
-        route = (<New switchState={this.switchState}/>);
+        route = (<New switchState={this.switchState} user={this.state.user}/>);
         break;
       case 'Test':
-        route = (<Test switchState={this.switchState}/>);
+        route = (<Test switchState={this.switchState} user={this.state.user}/>);
         break;
     }
     return (
