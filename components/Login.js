@@ -14,12 +14,15 @@ export default class Login extends React.Component {
   go = () =>{
     this.props.switchState('Menu');
   }
-  login =()=>{
+  login =async()=>{
     let creds = {
       username: this.state.username,
       password: this.state.password
     }
-    this.props.login(creds);
+    let login = await this.props.login(creds);
+    if (login.token){
+      this.props.switchState('Menu');
+    }
   }
   updateUsername = (text)=>{
     this.setState({username: text});

@@ -36,22 +36,30 @@ export default class App extends Component<{}> {
   }
   componentWillMount = async ()=>{
     // await AsyncStorage.removeItem('userToken');
-    // await AsyncStorage.setItem('userToken', 'this is a temporary user');
+    // await AsyncStorage.setItem('userToken', 'user token. meow!');
     let user = await AsyncStorage.getItem('userToken');
     this.setState({user});
 
   }
   login = async (creds)=>{
     let token = await AsyncStorage.getItem('userToken');
-    creds.token = token;
     let call = await fetch('http://192.168.1.75:8000/login',{
       method: 'Post',
       body: JSON.stringify(creds),
       headers: {
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
+        'Authorization': token
       }
     });
-    let response = await call.text();
+    let response = await call.json();
+    console.log(response);
+    if(response.error){
+      return response;
+    }else{
+      await AsyncStorage.setItem('userToken', response.token);
+      this.setState({user:response.token});
+      return response;
+    }
   }
   logout = async ()=>{
     await AsyncStorage.removeItem('userToken');
@@ -79,7 +87,7 @@ export default class App extends Component<{}> {
         route = (<MyNumbers switchState={this.switchState} user={this.state.user}/>);
         break;
       case 'Login':
-        route = (<Login switchState={this.switchState} user={this.state.user}  logout={this.logout}/>);
+        route = (<Login switchState={this.switchState} user={this.state.user}  login={this.login}/>);
         break;
       case 'New':
         route = (<New switchState={this.switchState} user={this.state.user}/>);
