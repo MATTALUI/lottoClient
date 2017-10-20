@@ -53,7 +53,8 @@ const styles = StyleSheet.create({
     width: 20
   },
   menuButton: {
-    backgroundColor: '#5880e8',
+    // backgroundColor: '#5880e8',
+    backgroundColor: '#FFCC00',
     width: '85%',
     height: 50,
     marginTop: 20,
@@ -62,11 +63,12 @@ const styles = StyleSheet.create({
     borderRadius: 65,
     elevation: 1,
     borderWidth: 3,
-    borderColor: '#BFEFFF'
+    borderColor: 'black'
   },
   buttonText: {
     textAlign: 'center',
-    color: 'white',
+    // color: 'white',
+    color: 'black',
     fontWeight: 'bold',
     fontSize: 23,
     marginTop: 5

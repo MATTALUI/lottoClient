@@ -30,7 +30,7 @@ export default class App extends Component<{}> {
   constructor (props) {
     super(props);
     this.state = {
-      route: 'Menu',
+      route: 'WinningNumbers',
       user: null
     };
   }
@@ -52,7 +52,6 @@ export default class App extends Component<{}> {
       }
     });
     let response = await call.json();
-    console.log(response);
     if(response.error){
       return response;
     }else{
@@ -115,6 +114,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#21447c',
+    // backgroundColor: '#FCFCFC'
   },
   welcome: {
     fontSize: 33,

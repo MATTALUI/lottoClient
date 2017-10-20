@@ -37,19 +37,27 @@ export default class WinningNumbers extends React.Component {
     }
     return (
       <View style={styles.container}>
-        <Text style={styles.number}>{this.state.date.complete}</Text>
-        <Text style={styles.number}>
-          GRAND PRIZE: {this.state.grandPrize}
+        <Text style={[styles.number, styles.date]}>{this.state.date.complete}</Text>
+        <Text style={[styles.number, styles.category]}>
+          特別獎
         </Text>
-        <Text style={styles.number}>
-          SECOND GRAND PRIZE: {this.state.secondGrandPrize}
+        <Text style={[styles.number]}>
+          {this.state.grandPrize}
         </Text>
-        <Text style={styles.number}>
-          FIRST PRIZE: {this.state.firstPrize}
+        <Text style={[styles.number,styles.category]}>
+          特獎
         </Text>
-        <Text style={styles.number}>
-          GET THREE: {this.state.grandPrize}
+        <Text style={[styles.number]}>
+          {this.state.secondGrandPrize}
         </Text>
+        <Text style={[styles.number, styles.category]}>
+          頭獎
+        </Text>
+            {this.state.firstPrize.map((number,index)=>(<Text style={styles.number} key={index}>{number}</Text>))}
+        <Text style={[styles.number, styles.category]}>
+          增開六獎
+        </Text>
+          {this.state.getThree.map((number,index)=>(<Text style={styles.number} key={index}>{number}</Text>))}
         <Button onPress={this.go} title='Back to Menu'/>
       </View>
     );
@@ -68,7 +76,17 @@ const styles = StyleSheet.create({
   },
   number: {
     textAlign: 'center',
-    color: '#ffffff'
+    color: '#FFCC00',
+    fontWeight: 'bold',
+    fontSize: 30
+  },
+  category: {
+    fontSize: 25,
+    color: 'azure'
+  },
+  date: {
+    backgroundColor: '#FFCC00',
+    color: '#111111'
   },
   imageContainer: {
     width: 100,

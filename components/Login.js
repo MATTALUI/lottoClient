@@ -20,6 +20,7 @@ export default class Login extends React.Component {
       password: this.state.password
     }
     let login = await this.props.login(creds);
+    console.log(login);
     if (login.token){
       this.props.switchState('Menu');
     }
