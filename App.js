@@ -30,7 +30,7 @@ export default class App extends Component<{}> {
   constructor (props) {
     super(props);
     this.state = {
-      route: 'WinningNumbers',
+      route: 'Menu',
       user: null
     };
   }

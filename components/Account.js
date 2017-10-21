@@ -7,6 +7,8 @@ export default class Account extends React.Component {
     if(!props.user){
       props.switchState('Login');
     }
+
+
   }
   go = () =>{
     this.props.switchState('Menu');
